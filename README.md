@@ -40,3 +40,33 @@ bun install
 # Install Frontend Dependencies
 cd ../frontend
 bun install
+
+#Create a .env file in both directories.
+#backend
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
+JWT_ACCESS_SECRET=your_secret_key
+JWT_REFRESH_SECRET=your_refresh_secret
+CLOUDINARY_CLOUD_NAME=...
+UPLOADTHING_TOKEN=...
+MAPTILER_KEY=...
+FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
+
+#frontend
+VITE_API_URL=http://localhost:3000/api
+VITE_MAPTILER_KEY=your_maptiler_key
+
+#Open two terminals.
+#Terminal 1 (Backend)
+
+cd backend/src
+bun run dev (or bun dev)
+
+cd frontend/src
+bun run dev
+
+
+Visit http://localhost:5173 and start camping! 🏕️
+
+  
