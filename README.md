@@ -63,6 +63,8 @@ VITE_MAPTILER_KEY=your_maptiler_key
 cd backend/src
 bun run dev (or bun dev)
 
+#Terminal 2 (Frontend)
+
 cd frontend/src
 bun run dev
 
