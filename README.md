@@ -70,5 +70,3 @@ bun run dev
 
 
 Visit http://localhost:5173 and start camping! 🏕️
-
-  
