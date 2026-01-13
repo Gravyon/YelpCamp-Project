@@ -1,0 +1,314 @@
+/* =========================================
+   1. IMPORTS & FONTS
+   ========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Patua+One&family=Nunito:wght@400;700&display=swap");
+
+/* =========================================
+   2. THEME ENGINE (CSS Variables)
+   ========================================= */
+
+/* --- GLOBAL DEFAULTS (Shared) --- */
+:root {
+  --camp-primary: #2e8b57; /* SeaGreen */
+  --camp-accent: #e67e22; /* Campfire Orange */
+
+  /* Fonts */
+  --font-heading: "Patua One", serif;
+  --font-body: "Nunito", sans-serif;
+
+  /* Shapes */
+  --camp-radius: 16px;
+}
+
+/* --- DAY MODE (Sunlight & Parchment) --- */
+[data-bs-theme="light"] {
+  --bs-body-bg: #f9f7f2; /* Warm Parchment */
+  --bs-body-bg-rgb: 249, 247, 242;
+  --bs-body-color: #2d3436; /* Charcoal Text */
+
+  --camp-card-bg: #ffffff; /* White cards */
+  --camp-input-bg: #ffffff;
+  --camp-border: #dcdcdc; /* Soft Grey */
+
+  /* Warm, fuzzy shadow */
+  --camp-shadow: 0 10px 25px -5px rgba(120, 80, 60, 0.15);
+}
+
+/* --- NIGHT MODE (Forest & Moonlight) --- */
+[data-bs-theme="dark"] {
+  --bs-body-bg: #1a2624; /* Deep Forest Green/Black */
+  --bs-body-bg-rgb: 26, 38, 36;
+  --bs-body-color: #e0e6ed; /* Moonlight Blue/Grey */
+
+  --camp-card-bg: #243431; /* Lighter Forest Green */
+  --camp-input-bg: #2f4541; /* Input fields background */
+  --camp-border: #405952; /* Muted Green Border */
+
+  /* Firelight Glow Shadow */
+  --camp-shadow: 0 10px 30px -5px rgba(230, 126, 34, 0.15);
+
+  /* Bootstrap Variable Overrides for Visibility */
+  --bs-primary: #4ade80; /* Brighter Green */
+  --bs-link-color: #81c995;
+  --bs-link-hover-color: #a3d9b1;
+}
+
+/* =========================================
+   3. GLOBAL RESETS & BASE STYLES
+   ========================================= */
+
+/* Remove arrows from Number Inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Body Styling & Texture */
+body {
+  font-family: var(--font-body);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography Headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+.navbar-brand,
+.card-title {
+  font-family: var(--font-heading);
+  color: var(--camp-primary);
+  letter-spacing: 0.5px;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Heading color override for Dark Mode */
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] .navbar-brand {
+  color: var(--bs-primary);
+}
+
+/* =========================================
+   4. GLOBAL UI POLISH (Scrollbars & Selection)
+   ========================================= */
+
+/* Selection Color (Campfire Orange) */
+::selection {
+  background-color: var(--camp-accent);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--camp-input-bg);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #bdc3c7;
+  border-radius: 20px;
+  border: 3px solid var(--camp-input-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--camp-primary);
+}
+
+/* Dark Mode Scrollbar */
+[data-bs-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: #4a5d5a;
+}
+[data-bs-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--camp-primary);
+}
+
+/* =========================================
+   5. COMPONENT: BUTTONS
+   ========================================= */
+
+.btn {
+  border-radius: var(--camp-radius);
+  font-weight: 700;
+}
+
+.btn-success {
+  background-color: var(--camp-primary);
+  border-color: var(--camp-primary);
+  box-shadow: 0 4px 6px rgba(26, 83, 92, 0.2);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-success:hover {
+  background-color: #14424a;
+  border-color: #4a1414;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--camp-accent);
+  border-color: var(--camp-accent);
+  transition: transform 0.2s;
+}
+.btn-danger:hover {
+  transform: translateY(-2px);
+}
+
+.auth-button:hover {
+  background-color: #354a14;
+  border-color: #14424a;
+  transform: translateY(-4px);
+}
+
+/* =========================================
+   6. COMPONENT: CARDS & IMAGES
+   ========================================= */
+
+.card {
+  background-color: var(--camp-card-bg);
+  border: 1px solid var(--camp-border);
+  border-radius: var(--camp-radius);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--camp-shadow);
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+  border-radius: var(--camp-radius) var(--camp-radius) 0 0;
+}
+
+.card-body,
+.list-group-item {
+  background-color: transparent;
+  color: var(--bs-body-color);
+  border-color: var(--camp-border);
+}
+
+/* Responsive Campground Images */
+.camp-image {
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .camp-image {
+    height: 100%;
+    min-height: 250px;
+  }
+}
+
+/* =========================================
+   7. COMPONENT: FORMS
+   ========================================= */
+
+.form-control,
+.input-group-text {
+  background-color: var(--camp-input-bg);
+  border-color: var(--camp-border);
+  color: var(--bs-body-color);
+  border-radius: var(--camp-radius);
+}
+
+/* Focus Glow */
+.form-control:focus {
+  background-color: var(--camp-input-bg);
+  color: var(--bs-body-color);
+  border-color: var(--camp-primary);
+  box-shadow: 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+}
+
+/* Placeholder Fix */
+[data-bs-theme="dark"] .form-control::placeholder {
+  color: #8b9d9b;
+}
+
+/* =========================================
+   8. COMPONENT: NAVIGATION & FOOTER
+   ========================================= */
+
+/* Footer Links */
+.hover-link:hover {
+  color: var(--camp-primary) !important;
+  text-decoration: underline !important;
+  transition: color 0.2s;
+}
+
+/* Social Icons */
+.social-icon:hover {
+  color: var(--camp-primary) !important;
+  transform: translateY(-3px);
+  transition: all 0.2s;
+}
+
+/* =========================================
+   9. LIBRARY OVERRIDES (MapLibre & Stars)
+   ========================================= */
+
+/* --- MAP POPUPS (Dark Mode Fixes) --- */
+[data-bs-theme="dark"] .maplibregl-popup-content {
+  background-color: var(--camp-card-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--camp-border);
+  box-shadow: var(--camp-shadow);
+}
+
+[data-bs-theme="dark"] .maplibregl-popup-close-button {
+  color: var(--bs-body-color);
+}
+[data-bs-theme="dark"] .maplibregl-popup-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .maplibregl-popup-tip {
+  border-top-color: var(--camp-card-bg);
+  border-bottom-color: transparent;
+}
+
+[data-bs-theme="dark"] .maplibregl-popup-content a {
+  color: var(--bs-link-color);
+}
+
+/* --- STAR RATINGS (Dark Mode Visibility) --- */
+[data-bs-theme="dark"] .starability-basic > label {
+  filter: invert(0.8) sepia(0.2) saturate(0.5) hue-rotate(90deg);
+  transition: all 0.2s ease;
+}
+
+[data-bs-theme="dark"] .starability-basic > input:checked ~ label,
+[data-bs-theme="dark"] .starability-basic > input:hover ~ label {
+  filter: none;
+}
+
+/* =========================================
+   10. ANIMATIONS
+   ========================================= */
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.8;
+  }
+}
