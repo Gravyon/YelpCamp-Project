@@ -22,7 +22,7 @@ const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
-  "http://localhost:5174", // Local Development
+  "http://localhost:5173", // Local Development
   process.env.FRONTEND_URL, // Production URL (from Render/Heroku env vars)
 ];
 // ----------------------
