@@ -44,14 +44,14 @@ app.use(
         connectSrc: [
           "'self'",
           "https://api.maptiler.com",
-          "https://uploadthing.com", // <--- Allow connecting to UT API
-          "https://utfs.io", // <--- Allow connecting to UT CDN
+          "https://*.uploadthing.com", // <--- Allow connecting to UT API
+          "https://*.utfs.io", // <--- Allow connecting to UT CDN
         ],
         imgSrc: [
           "'self'",
           "blob:",
           "data:",
-          "https://utfs.io", // <--- ALLOW UPLOADTHING IMAGES
+          "https://*.utfs.io", // <--- ALLOW UPLOADTHING IMAGES
           "https://images.unsplash.com", // Keep for seed data
           "https://api.maptiler.com",
         ],
@@ -78,7 +78,7 @@ app.use(
     },
     credentials: true, // Required for cookies
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
+    // allowedHeaders: "Content-Type,Authorization", // doesn't allow uploads for some reason???
   })
 ); // Allow cross-origin requests
 app.use(morgan("dev")); // Logger

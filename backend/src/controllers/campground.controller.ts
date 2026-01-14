@@ -15,7 +15,6 @@ export async function getCampgrounds(req: Request, res: Response) {
   const search = req.query.search as string;
   let query = {};
   if (search) {
-    console.log("search for :", search);
     query = {
       $or: [
         { title: { $regex: search, $options: "i" } },
