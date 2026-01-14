@@ -33,7 +33,7 @@ export default function ReviewForm({ campgroundId }: { campgroundId: string }) {
       await toast.promise(addReview(campgroundId, { rating, body }), {
         loading: "Posting review...",
         success: "Review posted successfully!",
-        error: (err) => "Could not post review.",
+        error: "Could not post review.",
       });
       setBody("");
       setRating(5);

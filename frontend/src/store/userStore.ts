@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { loginUser, logoutUser, getMe } from "../api/auth";
-import { deleteUser, getUserById, getUsers, postUser } from "../api/users";
+import { postUser } from "../api/users";
 
 export interface User {
   _id: string;
