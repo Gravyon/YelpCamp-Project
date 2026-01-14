@@ -44,7 +44,6 @@ export const useUserStore = create<UserStore>((set) => ({
     set({ loading: true, error: null });
     try {
       const response = await postUser(userData);
-      console.log("Backend Response:", response);
       const createdUser = response.user;
       set((state) => ({
         loading: false,
