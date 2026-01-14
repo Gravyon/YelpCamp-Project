@@ -21,12 +21,66 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  "http://localhost:5173", // Local Development
+  process.env.FRONTEND_URL, // Production URL (from Render/Heroku env vars)
+];
 // ----------------------
 // GLOBAL MIDDLEWARE
 // ----------------------
-app.use(helmet()); // Security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.maptiler.com"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://cdn.maptiler.com",
+          "https://fonts.googleapis.com",
+        ],
+        workerSrc: ["'self'", "blob:"],
+        connectSrc: [
+          "'self'",
+          "https://api.maptiler.com",
+          "https://uploadthing.com", // <--- Allow connecting to UT API
+          "https://utfs.io", // <--- Allow connecting to UT CDN
+        ],
+        imgSrc: [
+          "'self'",
+          "blob:",
+          "data:",
+          "https://utfs.io", // <--- ALLOW UPLOADTHING IMAGES
+          "https://images.unsplash.com", // Keep for seed data
+          "https://api.maptiler.com",
+        ],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+); // Security headers
 app.use(compression());
-app.use(cors({ origin: "http://localhost:5173", credentials: true })); // Allow cross-origin requests
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true, // Required for cookies
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+); // Allow cross-origin requests
 app.use(morgan("dev")); // Logger
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse form bodies

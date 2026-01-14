@@ -180,6 +180,7 @@ export const useCampgroundStore = create<CampgroundStore>((set) => ({
         if (!state.campground) return { loading: false };
         return {
           loading: false,
+          error: null,
           campground: {
             ...state.campground,
             reviews: [...(state.campground.reviews || []), newReview],
@@ -188,7 +189,7 @@ export const useCampgroundStore = create<CampgroundStore>((set) => ({
       });
     } catch (error: any) {
       const backendError = error.response?.data || { message: error.message };
-      set({ error: backendError, loading: false });
+      set({ loading: false });
       throw backendError;
     }
   },

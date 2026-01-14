@@ -1,7 +1,6 @@
 import api from "./axiosClient";
 
 export const getCampgrounds = async (page: number = 1, search: string = "") => {
-  console.log("API calling with:", { page, search });
   const params = new URLSearchParams();
   params.append("page", page.toString());
   if (search) params.append("search", search);
