@@ -6,25 +6,29 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const JWT_EXPIRES_IN = "7d";
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // Milliseconds for Cookie (7 days)
 
+const getCookieOptions = () => {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    // Must be 'none' in production to allow Vercel -> Render communication
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  } as const;
+};
+
 const generateJWT = (res: Response, userId: string) => {
   const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
   res.cookie("jwt", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    ...getCookieOptions(),
     maxAge: COOKIE_MAX_AGE,
-    path: "/",
   });
 };
 
 const clearJWT = (res: Response) => {
   res.cookie("jwt", "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    ...getCookieOptions(),
     expires: new Date(0),
-    path: "/",
   });
 };
 
