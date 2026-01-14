@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCampgroundStore } from "../store/campgroundStore";
+import { useCampgroundStore } from "../../store/campgroundStore";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Alert,
@@ -13,11 +13,12 @@ import {
   Image,
 } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { UploadDropzone } from "../utils/uploadthing";
+import { UploadDropzone } from "../../utils/uploadthing";
 import { FaCloudUploadAlt, FaArrowLeft, FaDollarSign } from "react-icons/fa";
-import Loader from "./Loader";
+import Loader from "../../components/common/Loader";
 
 export default function CreateCampground() {
+  document.title = "Creating a campground...";
   const navigate = useNavigate();
   const { addCampground, loading } = useCampgroundStore();
 

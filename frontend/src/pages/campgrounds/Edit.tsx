@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCampgroundStore } from "../store/campgroundStore";
+import { useCampgroundStore } from "../../store/campgroundStore";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   Alert,
@@ -12,11 +12,11 @@ import {
   Card,
   Row,
 } from "react-bootstrap";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../../store/userStore";
 import toast from "react-hot-toast";
-import { UploadDropzone } from "../utils/uploadthing";
+import { UploadDropzone } from "../../utils/uploadthing";
 import { FaTrash, FaArrowLeft, FaCloudUploadAlt } from "react-icons/fa"; // Added icons
-import Loader from "./Loader";
+import Loader from "../../components/common/Loader";
 
 export default function UpdateCampground() {
   const { id } = useParams();
@@ -58,6 +58,12 @@ export default function UpdateCampground() {
   }, [id, getCampgroundById]);
 
   useEffect(() => {
+    if (campground) {
+      document.title = `Updating ${campground?.title} | YelpCamp`;
+    } else {
+      document.title = "Loading... | YelpCamp";
+    }
+
     if (campground) {
       setForm({
         title: campground.title || "",

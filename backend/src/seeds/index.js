@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 import cities from "./cities.js";
 import { places, descriptors, images } from "./seedHelpers.js";
-import Campground from "../models/campground.model.js";
+import Campground from "../models/campground.model.ts";
+import User from "../models/user.model.ts";
 import dotenv from "dotenv";
+import { usernames } from "./users.js";
+import bcrypt from "bcrypt";
+
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI);
+const DATABASE = process.env.MONGO_DATABASE;
+mongoose.connect(DATABASE);
 
 const db = mongoose.connection;
 
@@ -19,6 +24,21 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
   // Clear existing data
   await Campground.deleteMany({});
+  await User.deleteMany({});
+
+  const createdUserIds = [];
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash("password123456789@!", salt);
+
+  for (const username of usernames) {
+    const user = new User({
+      email: `${username.toLowerCase()}@test.com`,
+      username: username,
+      password: hashedPassword, // Manually hash it!
+    });
+    const savedUser = await user.save();
+    createdUserIds.push(savedUser._id); // Save ID for later
+  }
 
   for (let i = 0; i < 500; i++) {
     const random1000 = Math.floor(Math.random() * 1000);
@@ -26,8 +46,11 @@ const seedDB = async () => {
     const cityData = cities[random1000];
     const shuffledImages = images.sort(() => 0.5 - Math.random());
     const selectedImages = shuffledImages.slice(0, 2);
+    const randomUserIndex = Math.floor(Math.random() * createdUserIds.length);
+    const randomAuthorId = createdUserIds[randomUserIndex];
+
     const camp = new Campground({
-      author: "695ea1d500c67383aed79947", // Ensure this User ID exists in your DB!
+      author: randomAuthorId, // Ensure this User ID exists in your DB!
       location: `${cityData.city}, ${cityData.state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       geometry: {

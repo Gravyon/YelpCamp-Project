@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useCampgroundStore } from "../store/campgroundStore";
+import { useCampgroundStore } from "../../store/campgroundStore";
 import { Link, useSearchParams } from "react-router-dom";
 import { FaMapMarkerAlt, FaSearch, FaTree } from "react-icons/fa"; // Added FaTree
-import ClusterMap from "./Map";
+import ClusterMap from "../../components/campgrounds/ClusterMap";
 import {
   Alert,
   Image,
@@ -15,7 +15,7 @@ import {
   InputGroup,
   Form,
 } from "react-bootstrap";
-import Loader from "./Loader";
+import Loader from "../../components/common/Loader";
 
 export default function Campgrounds() {
   const {
@@ -35,6 +35,7 @@ export default function Campgrounds() {
   const [scrollingNeeded, setScrollingNeeded] = useState(false);
 
   useEffect(() => {
+    document.title = "Campgrounds";
     getCampgrounds(1, initialSearch); // Ensure we start on page 1
   }, [getCampgrounds, initialSearch]);
 
@@ -107,7 +108,6 @@ export default function Campgrounds() {
       startPage = 2;
     }
 
-    // FIX: Adjust range if we are near the END
     // If current is 48, 49, 50, show from page 46
     if (currentPage >= totalPages - 2) {
       startPage = Math.max(2, totalPages - 4);

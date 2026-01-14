@@ -2,7 +2,7 @@ import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useState } from "react";
-import type { Campground } from "../store/campgroundStore";
+import type { Campground } from "../../store/campgroundStore";
 import { Link } from "react-router-dom";
 
 const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useCampgroundStore } from "../store/campgroundStore";
+import { useCampgroundStore } from "../../store/campgroundStore";
 import { Button, Form, Alert, Card } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { FaPaperPlane, FaStar } from "react-icons/fa";
-import "../stars.css";
+import "../../stars.css";
 
 export default function ReviewForm({ campgroundId }: { campgroundId: string }) {
   const { addReview } = useCampgroundStore();

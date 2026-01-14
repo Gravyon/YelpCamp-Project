@@ -1,7 +1,7 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
-import { useUserStore } from "../store/userStore";
+import ThemeToggle from "../common/ThemeToggle";
+import { useUserStore } from "../../store/userStore";
 import toast from "react-hot-toast";
 
 export default function MainNavbar() {

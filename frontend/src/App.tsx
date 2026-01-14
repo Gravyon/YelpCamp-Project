@@ -1,19 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Campgrounds from "./components/Campgrounds";
-import CampgroundForm from "./components/CreateCampground";
-import Campground from "./components/Campground";
-import UpdateCampground from "./components/UpdateCampground";
-import MainNavbar from "./components/MainNavbar";
-import Footer from "./components/Footer";
-import NotFound from "./components/NotFound";
+import Home from "./pages/Home";
+import Campgrounds from "./pages/campgrounds/Index";
+import CampgroundForm from "./pages/campgrounds/New";
+import Campground from "./pages/campgrounds/Details";
+import UpdateCampground from "./pages/campgrounds/Edit";
+import MainNavbar from "./components/layout/MainNavbar";
+import Footer from "./components/layout/Footer";
+import NotFound from "./pages/NotFound";
 import { Toaster } from "react-hot-toast";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { useEffect } from "react";
 import { useUserStore } from "./store/userStore";
-import { PublicRoute } from "./components/PublicRoute";
+import { PublicRoute } from "./components/auth/PublicRoute";
 function App() {
   const { checkAuth } = useUserStore();
   useEffect(() => {

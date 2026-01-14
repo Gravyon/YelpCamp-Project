@@ -1,5 +1,5 @@
 import { FaSun, FaMoon } from "react-icons/fa";
-import { useTheme } from "../hooks/useTheme";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();

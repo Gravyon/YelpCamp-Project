@@ -1,5 +1,5 @@
-import { useUserStore } from "../store/userStore";
-import Loader from "./Loader";
+import { useUserStore } from "../../store/userStore";
+import Loader from "../common/Loader";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const PublicRoute = () => {

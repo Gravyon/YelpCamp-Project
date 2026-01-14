@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useUserStore } from "../store/userStore";
-import Loader from "./Loader";
+import { useUserStore } from "../../store/userStore";
+import Loader from "../common/Loader";
 
 function ProtectedRoute() {
   const { isCheckingAuth, isAuthenticated } = useUserStore();

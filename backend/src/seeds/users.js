@@ -1,0 +1,17 @@
+export const usernames = [
+  "HappyCamper88",
+  "TrailBlazer_X",
+  "Forest_Wanderer",
+  "SmoresConnoisseur",
+  "PitchPerfectTents",
+  "MountainGoat_01",
+  "River_Ranger",
+  "Starry_Nights",
+  "IntoTheWilderness",
+  "Campfire_Tales",
+  "PineCone_Picker",
+  "SummitSeeker",
+  "BearAware",
+  "DustyBoots",
+  "Glamping_Queen",
+];

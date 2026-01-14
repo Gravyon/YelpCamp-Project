@@ -1,7 +1,10 @@
-import { useEffect } from "react";
-import { useCampgroundStore } from "../store/campgroundStore";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ReviewForm from "./ReviewForm";
+import { useCampgroundStore } from "../../store/campgroundStore";
+import { useUserStore } from "../../store/userStore";
+import toast from "react-hot-toast";
+
+// Components
 import {
   Button,
   Card,
@@ -9,19 +12,19 @@ import {
   Col,
   ListGroup,
   Row,
-  Spinner,
   Container,
 } from "react-bootstrap";
-import toast from "react-hot-toast";
-import { useUserStore } from "../store/userStore";
+import ReviewForm from "../../components/campgrounds/ReviewForm";
+import ClusterMap from "../../components/campgrounds/ClusterMap";
 import { FaMapMarkerAlt, FaUser, FaTree, FaArrowLeft } from "react-icons/fa";
-import "../stars.css";
-import ClusterMap from "./Map";
-import Loader from "./Loader";
+import "../../stars.css";
+import DeleteModal from "../../components/common/DeleteModal";
+import Loader from "../../components/common/Loader";
 
 export default function Campground() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const {
     campground,
     getCampgroundById,
@@ -30,39 +33,54 @@ export default function Campground() {
     error,
     deleteReview,
   } = useCampgroundStore();
+
   const { user, isAuthenticated } = useUserStore();
 
+  // --- STATE MANAGEMENT ---
+  // For Campground Deletion
+  const [showCampDelete, setShowCampDelete] = useState(false);
+
+  // For Review Deletion (Stores the ID of the review to be deleted, or null if closed)
+  const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
+
+  // --- EFFECTS ---
   useEffect(() => {
     if (id) getCampgroundById(id);
   }, [id, getCampgroundById]);
 
-  const handleDeleteReview = async (reviewId: string) => {
-    if (id && window.confirm("Delete this review?")) {
-      try {
-        await deleteReview(id, reviewId);
-        toast.success("Review deleted!", { icon: "🗑️" });
-      } catch (error: any) {
-        toast.error(error.message || "Could not delete.");
-      }
+  useEffect(() => {
+    document.title = campground ? `${campground.title} | YelpCamp` : "YelpCamp";
+    return () => {
+      document.title = "YelpCamp";
+    };
+  }, [campground]);
+
+  // --- HANDLERS ---
+  const handleConfirmDeleteCampground = async () => {
+    if (!id) return;
+    try {
+      await deleteCampground(id);
+      toast.success("Campground deleted!", { icon: "🗑️" });
+      setShowCampDelete(false);
+      navigate("/campgrounds");
+    } catch (error: any) {
+      toast.error(error.message || "Could not delete.");
     }
   };
 
-  const handleDeleteCampground = async () => {
-    if (
-      id &&
-      window.confirm("Are you sure you want to delete this campground?")
-    ) {
-      try {
-        await deleteCampground(id);
-        toast.success("Campground deleted!", { icon: "🗑️" });
-        navigate("/campgrounds");
-      } catch (error: any) {
-        toast.error(error.message || "Could not delete.");
-      }
+  const handleConfirmDeleteReview = async () => {
+    if (!id || !reviewToDelete) return;
+    try {
+      await deleteReview(id, reviewToDelete);
+      toast.success("Review deleted!", { icon: "🗑️" });
+      setReviewToDelete(null); // Close modal and clear ID
+    } catch (error: any) {
+      toast.error(error.message || "Could not delete.");
     }
   };
 
-  if (error)
+  // --- LOADING / ERROR STATES ---
+  if (error) {
     return (
       <Container className="mt-5">
         <div className="alert alert-danger shadow-sm border-0" role="alert">
@@ -75,22 +93,25 @@ export default function Campground() {
         </div>
       </Container>
     );
+  }
 
-  if (loading)
+  if (loading) {
     return (
       <div
-        className="d-flex flex-column justify-content-center align-items-center"
+        className="d-flex justify-content-center align-items-center"
         style={{ minHeight: "60vh" }}
       >
         <Loader />
       </div>
     );
+  }
 
   if (!campground) return null;
 
+  const isAuthor = user && campground.author._id === user._id;
+
   return (
     <Container className="py-5">
-      {/* Back Button */}
       <Link
         to="/campgrounds"
         className="text-decoration-none text-muted mb-4 d-inline-block fw-bold"
@@ -102,7 +123,6 @@ export default function Campground() {
         {/* --- LEFT COLUMN: DETAILS --- */}
         <Col md={6}>
           <Card className="border-0 shadow-lg rounded-4 overflow-hidden mb-4">
-            {/* Carousel */}
             <Carousel data-bs-theme="light">
               {campground.images.map((img, i) => (
                 <Carousel.Item key={i}>
@@ -111,7 +131,7 @@ export default function Campground() {
                     src={img.url}
                     alt={`Slide ${i}`}
                     style={{
-                      height: "400px", // Taller for better visual impact
+                      height: "400px",
                       width: "100%",
                       objectFit: "cover",
                     }}
@@ -157,7 +177,7 @@ export default function Campground() {
               </ListGroup>
 
               {/* Owner Actions */}
-              {user && campground.author._id === user._id && (
+              {isAuthor && (
                 <div className="d-flex gap-2 border-top pt-3">
                   <Link to={`/campgrounds/${id}/edit`} className="flex-grow-1">
                     <Button
@@ -172,9 +192,9 @@ export default function Campground() {
                     </Button>
                   </Link>
                   <Button
-                    onClick={handleDeleteCampground}
                     variant="outline-danger"
-                    className="rounded-pill fw-bold px-4"
+                    className="rounded-pill fw-bold px-4 border-2"
+                    onClick={() => setShowCampDelete(true)}
                   >
                     Delete
                   </Button>
@@ -186,7 +206,6 @@ export default function Campground() {
 
         {/* --- RIGHT COLUMN: MAP & REVIEWS --- */}
         <Col md={6}>
-          {/* MAP WIDGET */}
           {campground.geometry && (
             <div
               className="shadow-lg rounded-4 overflow-hidden mb-4 border border-1"
@@ -196,7 +215,6 @@ export default function Campground() {
             </div>
           )}
 
-          {/* REVIEWS SECTION */}
           <div
             className="p-4 rounded-4 shadow-sm"
             style={{
@@ -246,11 +264,10 @@ export default function Campground() {
                           >
                             <FaUser className="text-secondary" size={14} />
                           </div>
-                          <span className="fw-bold ">
+                          <span className="fw-bold">
                             {review.author?.username}
                           </span>
                         </div>
-                        {/* Star Rating Display */}
                         <div
                           className="starability-result"
                           data-rating={review.rating}
@@ -270,12 +287,13 @@ export default function Campground() {
                       {user && review.author?._id === user._id && (
                         <div className="d-flex justify-content-end">
                           <Button
+                            variant="outline-danger"
                             size="sm"
-                            variant="link"
-                            className="text-danger text-decoration-none p-0"
-                            onClick={() => handleDeleteReview(review._id)}
+                            className="rounded-pill fw-bold px-3 border-2"
+                            // FIX: Just set the ID here, don't render a modal
+                            onClick={() => setReviewToDelete(review._id)}
                           >
-                            Delete Review
+                            Delete
                           </Button>
                         </div>
                       )}
@@ -287,6 +305,26 @@ export default function Campground() {
           </div>
         </Col>
       </Row>
+
+      {/* --- SHARED MODALS (Rendered outside loops) --- */}
+
+      {/* 1. Delete Campground Modal */}
+      <DeleteModal
+        show={showCampDelete}
+        onHide={() => setShowCampDelete(false)}
+        onConfirm={handleConfirmDeleteCampground}
+        title="Delete Campground?"
+        body="Are you sure? This action cannot be undone."
+      />
+
+      {/* 2. Delete Review Modal */}
+      <DeleteModal
+        show={!!reviewToDelete} // Show if an ID is selected
+        onHide={() => setReviewToDelete(null)}
+        onConfirm={handleConfirmDeleteReview}
+        title="Delete Review?"
+        body="This will permanently remove your review."
+      />
     </Container>
   );
 }
