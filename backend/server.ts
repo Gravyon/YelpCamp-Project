@@ -67,18 +67,22 @@ app.use(compression());
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
-        return callback(new Error(msg), false);
+      // Check explicit allowed list
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        return callback(null, true);
       }
-      return callback(null, true);
+      // Allow any Vercel preview deployment for your app
+      // (Optional security risk, but helpful for development)
+      if (origin.endsWith(".vercel.app")) {
+        return callback(null, true);
+      }
+      const msg = `The CORS policy does not allow access from ${origin}`;
+      return callback(new Error(msg), false);
     },
-    credentials: true, // Required for cookies
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    // allowedHeaders: "Content-Type,Authorization", // doesn't allow uploads for some reason???
+    credentials: true,
+    // ...
   })
 ); // Allow cross-origin requests
 app.use(morgan("dev")); // Logger
