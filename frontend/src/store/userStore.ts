@@ -80,7 +80,7 @@ export const useUserStore = create<UserStore>((set) => ({
   logout: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await logoutUser();
+      await logoutUser();
       set({ isAuthenticated: false, loading: false, user: null });
     } catch (error: any) {
       const backendError = error.response?.data || { message: error.message };
