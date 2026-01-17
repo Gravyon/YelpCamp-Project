@@ -30,7 +30,7 @@ This project uses **Bun** for fast package management.
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/yourusername/yelpcamp.git
+git clone https://github.com/Gravyon/YelpCamp-Project
 cd yelpcamp
 
 # Install Backend Dependencies
