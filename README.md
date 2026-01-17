@@ -21,7 +21,7 @@ A modern, full-stack application for sharing and reviewing campgrounds. Built wi
 ## 🛠️ Tech Stack
 
 *   **Frontend:** React (Vite), Bootstrap 5, Zustand, React Map GL.
-*   **Backend:** Node.js, Express 5, Mongoose, Zod/Joi Validation.
+*   **Backend:** Node.js, Express 5, Mongoose, Joi Validation.
 *   **Services:** MongoDB Atlas, MapTiler, UploadThing.
 
 ## 🚀 Getting Started
