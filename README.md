@@ -31,14 +31,13 @@ This project uses **Bun** for fast package management.
 ### 1. Clone & Install
 ```bash
 git clone https://github.com/Gravyon/YelpCamp-Project
-cd yelpcamp
 
 # Install Backend Dependencies
-cd backend
+cd /backend
 bun install
 
 # Install Frontend Dependencies
-cd ../frontend
+cd /frontend
 bun install
 
 #Create a .env file in both directories.
