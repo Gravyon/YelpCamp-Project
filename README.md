@@ -32,13 +32,20 @@ This project uses **Bun** for fast package management.
 ```bash
 git clone https://github.com/Gravyon/YelpCamp-Project
 
-# Install Backend Dependencies
-cd /backend
-bun install
+#Open two terminals.
+#Terminal 1 (Backend)
+#Install dependendecies
+cd backend/src
+bun i
+Run the backend.
+bun run dev (or bun dev)
 
-# Install Frontend Dependencies
-cd /frontend
-bun install
+#Terminal 2 (Frontend)
+#Install dependendecies
+bun i
+Run the frontend.
+cd frontend/src
+bun run dev
 
 #Create a .env file in both directories.
 #backend
@@ -54,17 +61,5 @@ FRONTEND_URL=
 
 #frontend
 VITE_MAPTILER_KEY=your_maptiler_key
-
-#Open two terminals.
-#Terminal 1 (Backend)
-
-cd backend/src
-bun run dev (or bun dev)
-
-#Terminal 2 (Frontend)
-
-cd frontend/src
-bun run dev
-
 
 Visit http://localhost:5173 and start camping! 🏕️
