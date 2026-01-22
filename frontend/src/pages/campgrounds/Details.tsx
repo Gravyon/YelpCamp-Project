@@ -17,7 +17,6 @@ import {
 import ReviewForm from "../../components/campgrounds/ReviewForm";
 import ClusterMap from "../../components/campgrounds/ClusterMap";
 import { FaMapMarkerAlt, FaUser, FaTree, FaArrowLeft } from "react-icons/fa";
-import "../../stars.css";
 import DeleteModal from "../../components/common/DeleteModal";
 import Loader from "../../components/common/Loader";
 

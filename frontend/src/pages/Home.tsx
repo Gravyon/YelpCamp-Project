@@ -63,9 +63,6 @@ export default function Home() {
           >
             <Form onSubmit={handleSearch} className="d-flex">
               <InputGroup>
-                <InputGroup.Text className="bg-transparent border-0 ps-4">
-                  <FaSearch className="text-muted" />
-                </InputGroup.Text>
                 <Form.Control
                   className="border-0 shadow-none bg-transparent form-control-lg"
                   placeholder="Where do you want to go?"
@@ -83,7 +80,7 @@ export default function Home() {
                   border: "none",
                 }}
               >
-                Search
+                <FaSearch />
               </Button>
             </Form>
           </div>

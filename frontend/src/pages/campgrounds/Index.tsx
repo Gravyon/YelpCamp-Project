@@ -204,9 +204,6 @@ export default function Campgrounds() {
           >
             <Form onSubmit={handleSearchSubmit} className="d-flex">
               <InputGroup>
-                <InputGroup.Text className="bg-transparent border-0 ps-4">
-                  <FaSearch className="text-muted" />
-                </InputGroup.Text>
                 <Form.Control
                   className="border-0 shadow-none bg-transparent form-control-lg"
                   placeholder="Search our campgrounds..."
@@ -224,7 +221,7 @@ export default function Campgrounds() {
                 }}
                 type="submit"
               >
-                Search
+                <FaSearch />
               </Button>
             </Form>
           </div>
