@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Campground from "../models/campground.model";
 import { AppError } from "../utils/AppError";
-import { utapi } from "../uploadthing/utapi";
+import { utapi } from "../uploads/utapi";
 import axios from "axios";
 
 ////////////////////////
@@ -42,8 +42,8 @@ export async function getCampgrounds(req: Request, res: Response) {
 export async function createCampground(req: Request, res: Response) {
   const geoData = await axios.get(
     `https://api.maptiler.com/geocoding/${encodeURIComponent(
-      req.body.location
-    )}.json?key=${process.env.MAPTILER_KEY}&limit=1`
+      req.body.location,
+    )}.json?key=${process.env.MAPTILER_KEY}&limit=1`,
   );
   const geometry = geoData.data.features[0].geometry;
   const campground = new Campground({ ...req.body, geometry: geometry });

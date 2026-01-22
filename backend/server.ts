@@ -12,7 +12,7 @@ import { errorHandler } from "./utils/errorHandler";
 import cookieParser from "cookie-parser";
 import { sessionConfig } from "./config/session";
 import { createRouteHandler } from "uploadthing/express";
-import { uploadRouter } from "./uploadthing/uploadthing";
+import { uploadRouter } from "./uploads/uploadthing";
 import { mongoSanitize } from "./utils/mongoSanitize";
 import { limiter } from "./utils/rateLimiter";
 
@@ -61,7 +61,7 @@ app.use(
       },
     },
     crossOriginResourcePolicy: { policy: "cross-origin" },
-  })
+  }),
 ); // Security headers
 app.use(compression());
 app.use(
@@ -83,7 +83,7 @@ app.use(
     },
     credentials: true,
     // ...
-  })
+  }),
 ); // Allow cross-origin requests
 app.use(morgan("dev")); // Logger
 app.use(express.json()); // Parse JSON bodies
@@ -100,7 +100,7 @@ app.use(
   createRouteHandler({
     router: uploadRouter,
     config: { token: process.env.UPLOADTHING_TOKEN! },
-  })
+  }),
 );
 app.use("/api/campgrounds", campgroundRouter);
 app.use("/api/users", userRouter);

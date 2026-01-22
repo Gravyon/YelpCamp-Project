@@ -117,13 +117,25 @@ export default function Footer() {
               Follow Us
             </h5>
             <div className="d-flex gap-3">
-              <a href="#" className="text-muted fs-4 social-icon">
+              <a
+                target="blank"
+                href="https://github.com/Gravyon"
+                className="text-muted fs-4 social-icon"
+              >
                 <FaGithub />
               </a>
-              <a href="#" className="text-muted fs-4 social-icon">
+              <a
+                target="blank"
+                href="https://github.com/Gravyon"
+                className="text-muted fs-4 social-icon"
+              >
                 <FaTwitter />
               </a>
-              <a href="#" className="text-muted fs-4 social-icon">
+              <a
+                target="blank"
+                href="https://github.com/Gravyon"
+                className="text-muted fs-4 social-icon"
+              >
                 <FaInstagram />
               </a>
             </div>
