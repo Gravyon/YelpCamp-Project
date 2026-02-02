@@ -24,7 +24,6 @@ export default function UpdateCampground() {
   const { getCampgroundById, updateCampground, campground, loading } =
     useCampgroundStore();
 
-  // ... (Your state and logic hooks remain exactly the same)
   const [validated, setValidated] = useState(false);
   const [globalError, setGlobalError] = useState<any>(null);
   const [fieldErrors, setFieldErrors] = useState<any[]>([]);
@@ -279,7 +278,6 @@ export default function UpdateCampground() {
                         },
                         label: { color: "var(--camp-primary)" },
                       }}
-                      // ... content prop same as before ...
                       content={{
                         label: "Add new photos",
                         button({ ready, isUploading }) {
@@ -302,7 +300,7 @@ export default function UpdateCampground() {
                       }}
                     />
 
-                    {/* New Images Preview */}
+                    {/* Images Preview */}
                     {images.length > 0 && (
                       <div className="d-flex gap-2 mt-3 flex-wrap">
                         {images.map((img) => (
