@@ -73,7 +73,6 @@ export default function Campgrounds() {
   const renderPaginationItems = () => {
     const items = [];
 
-    // Helper to render a specific page button
     const renderPageButton = (number: number) => (
       <Pagination.Item
         key={number}
@@ -96,13 +95,9 @@ export default function Campgrounds() {
     // 1. ALWAYS SHOW FIRST PAGE
     items.push(renderPageButton(1));
 
-    // 2. CALCULATE RANGE
-    // We want to show ~5 pages in the middle block (neighbors)
     let startPage = Math.max(2, currentPage - 2);
     let endPage = Math.min(totalPages - 1, currentPage + 2);
 
-    // FIX: Adjust range if we are near the START
-    // If current is 1, 2, or 3, show up to page 5
     if (currentPage <= 3) {
       endPage = Math.min(totalPages - 1, 5);
       startPage = 2;
