@@ -18,7 +18,7 @@ export default function MainNavbar() {
     <Navbar
       expand="lg"
       fixed="top"
-      className="shadow-sm py-3" // More padding (py-3) + shadow
+      className="shadow-sm py-3"
       style={{
         // Glassmorphism Effect
         backgroundColor: "rgba(var(--bs-body-bg-rgb), 0.85)", // Uses Bootstrap's RGB var for opacity
@@ -90,7 +90,6 @@ export default function MainNavbar() {
               // LOGGED IN STATE
               <>
                 <div className="d-flex align-items-center gap-2 text-muted fw-bold">
-                  {/* Optional: Add a User Avatar Icon here if you have one */}
                   <span>{user.username}</span>
                 </div>
                 <Button
