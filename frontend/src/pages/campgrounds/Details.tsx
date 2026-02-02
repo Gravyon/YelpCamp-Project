@@ -4,7 +4,6 @@ import { useCampgroundStore } from "../../store/campgroundStore";
 import { useUserStore } from "../../store/userStore";
 import toast from "react-hot-toast";
 
-// Components
 import {
   Button,
   Card,
@@ -35,14 +34,9 @@ export default function Campground() {
 
   const { user, isAuthenticated } = useUserStore();
 
-  // --- STATE MANAGEMENT ---
-  // For Campground Deletion
   const [showCampDelete, setShowCampDelete] = useState(false);
-
-  // For Review Deletion (Stores the ID of the review to be deleted, or null if closed)
   const [reviewToDelete, setReviewToDelete] = useState<string | null>(null);
 
-  // --- EFFECTS ---
   useEffect(() => {
     if (id) getCampgroundById(id);
   }, [id, getCampgroundById]);
@@ -54,7 +48,6 @@ export default function Campground() {
     };
   }, [campground]);
 
-  // --- HANDLERS ---
   const handleConfirmDeleteCampground = async () => {
     if (!id) return;
     try {
@@ -78,7 +71,6 @@ export default function Campground() {
     }
   };
 
-  // --- LOADING / ERROR STATES ---
   if (error) {
     return (
       <Container className="mt-5">
@@ -289,7 +281,6 @@ export default function Campground() {
                             variant="outline-danger"
                             size="sm"
                             className="rounded-pill fw-bold px-3 border-2"
-                            // FIX: Just set the ID here, don't render a modal
                             onClick={() => setReviewToDelete(review._id)}
                           >
                             Delete
