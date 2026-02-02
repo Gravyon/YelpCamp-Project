@@ -23,7 +23,6 @@ export default function Home() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd pass this as a query param
     navigate(`/campgrounds?search=${search}`);
   };
 
@@ -35,10 +34,10 @@ export default function Home() {
         style={{
           backgroundImage:
             'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")',
-          height: "75vh", // Taller hero looks more premium
+          height: "75vh", 
           backgroundSize: "cover",
           backgroundPosition: "center",
-          borderRadius: "0 0 50px 50px", // More dramatic curve
+          borderRadius: "0 0 50px 50px", 
           marginBottom: "4rem",
         }}
       >
