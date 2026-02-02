@@ -37,13 +37,13 @@ git clone https://github.com/Gravyon/YelpCamp-Project
 #Install dependendecies
 cd backend/src
 bun i
-Run the backend.
+#Run the backend.
 bun run dev (or bun dev)
 
 #Terminal 2 (Frontend)
 #Install dependendecies
 bun i
-Run the frontend.
+#Run the frontend.
 cd frontend/src
 bun run dev
 
