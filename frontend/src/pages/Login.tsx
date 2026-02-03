@@ -11,7 +11,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa"; // Added icons
+import { FaEnvelope, FaLock, 
+        // FaGoogle 
+       } from "react-icons/fa"; // Added icons
 
 export default function Login() {
   const { login, error } = useUserStore();
