@@ -143,13 +143,13 @@ export default function Login() {
                     <hr className="flex-grow-1" />
                   </div>
 
-                  <Button
+                  {/* <Button
                     className="fw-bold py-2 rounded-pill border-0 d-flex align-items-center justify-content-center gap-2"
                     variant="light"
                     style={{ backgroundColor: "#f1f1f1" }}
                   >
                     <FaGoogle className="text-danger" /> Login with Google
-                  </Button>
+                  </Button> */}
                 </div>
 
                 <div className="text-center mt-4 pt-3 border-top">
