@@ -137,11 +137,11 @@ export default function Login() {
                   </Button>
 
                   {/* Divider */}
-                  <div className="d-flex align-items-center my-2">
+                  {/* <div className="d-flex align-items-center my-2">
                     <hr className="flex-grow-1" />
                     <span className="mx-3 text-muted small">OR</span>
                     <hr className="flex-grow-1" />
-                  </div>
+                  </div> */}
 
                   {/* <Button
                     className="fw-bold py-2 rounded-pill border-0 d-flex align-items-center justify-content-center gap-2"
